@@ -3,6 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-Vendor: %Bundle-Vendor
 Bundle-Localization: plugin
+Bundle-Activator: org.eclipse.tracecompass.internal.perfetto.core.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-SymbolicName: org.eclipse.tracecompass.perfetto.core;singleton:=true
 Bundle-Version: 1.1.0.qualifier

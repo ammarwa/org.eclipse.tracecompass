@@ -160,7 +160,8 @@ public abstract class SortingJob extends Job {
                 }
             }
             List<PartiallyParsedEvent> events = new ArrayList<>(CHUNK_SIZE);
-            String eventString = JsonTrace.readNextEventString(parser::read);
+            // TODO
+            String eventString = ""; //JsonTrace.readNextEventString(parser::read);
             if (eventString == null) {
                 return new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Empty event in " + fPath); //$NON-NLS-1$
             }
@@ -175,7 +176,8 @@ public abstract class SortingJob extends Job {
                     if (subMonitor.isCanceled()) {
                         return Status.CANCEL_STATUS;
                     }
-                    eventString = JsonTrace.readNextEventString(parser::read);
+                    // TODO
+                    eventString = ""; //JsonTrace.readNextEventString(parser::read);
                     if (eventString == null) {
                         break;
                     }
@@ -222,7 +224,8 @@ public abstract class SortingJob extends Job {
                         break;
                     }
                 }
-                eventString = JsonTrace.readNextEventString(createParser::read);
+                // TODO
+                eventString = ""; //JsonTrace.readNextEventString(createParser::read);
                 PartiallyParsedEvent parse = new PartiallyParsedEvent(fTsKey, eventString, i);
                 evs.add(parse);
                 i++;
@@ -320,7 +323,8 @@ public abstract class SortingJob extends Job {
 
     private static @Nullable PartiallyParsedEvent readNextEvent(BufferedInputStream parser, String key, int i)
             throws IOException {
-        String event = JsonTrace.readNextEventString(parser::read);
+        // TODO
+        String event = "";//JsonTrace.readNextEventString(parser::read);
         return event == null ? null : new PartiallyParsedEvent(key, event, i);
 
     }

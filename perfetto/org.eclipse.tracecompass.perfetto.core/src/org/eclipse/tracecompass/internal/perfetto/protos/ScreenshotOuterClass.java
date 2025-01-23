@@ -102,8 +102,12 @@ public final class ScreenshotOuterClass {
     @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
+      if (isInitialized == 1) {
+        return true;
+    }
+      if (isInitialized == 0) {
+        return false;
+    }
 
       memoizedIsInitialized = 1;
       return true;
@@ -121,7 +125,9 @@ public final class ScreenshotOuterClass {
     @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
-      if (size != -1) return size;
+      if (size != -1) {
+        return size;
+    }
 
       size = 0;
       if (((bitField0_ & 0x00000001) != 0)) {
@@ -143,12 +149,18 @@ public final class ScreenshotOuterClass {
       }
       org.eclipse.tracecompass.internal.perfetto.protos.ScreenshotOuterClass.Screenshot other = (org.eclipse.tracecompass.internal.perfetto.protos.ScreenshotOuterClass.Screenshot) obj;
 
-      if (hasJpgImage() != other.hasJpgImage()) return false;
+      if (hasJpgImage() != other.hasJpgImage()) {
+        return false;
+    }
       if (hasJpgImage()) {
         if (!getJpgImage()
-            .equals(other.getJpgImage())) return false;
+            .equals(other.getJpgImage())) {
+            return false;
+        }
       }
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) {
+        return false;
+    }
       return true;
     }
 
@@ -347,7 +359,9 @@ public final class ScreenshotOuterClass {
       }
 
       public Builder mergeFrom(org.eclipse.tracecompass.internal.perfetto.protos.ScreenshotOuterClass.Screenshot other) {
-        if (other == org.eclipse.tracecompass.internal.perfetto.protos.ScreenshotOuterClass.Screenshot.getDefaultInstance()) return this;
+        if (other == org.eclipse.tracecompass.internal.perfetto.protos.ScreenshotOuterClass.Screenshot.getDefaultInstance()) {
+            return this;
+        }
         if (other.hasJpgImage()) {
           setJpgImage(other.getJpgImage());
         }
@@ -492,7 +506,7 @@ public final class ScreenshotOuterClass {
 
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_perfetto_protos_Screenshot_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_perfetto_protos_Screenshot_fieldAccessorTable;
 

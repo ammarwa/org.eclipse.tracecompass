@@ -1,11 +1,11 @@
 package org.eclipse.tracecompass.internal.provisional.perfetto.core.trace;
 
-import perfetto.protos.TraceOuterClass;
-import perfetto.protos.TracePacketOuterClass;
-import perfetto.protos.TrackEventOuterClass;
-import perfetto.protos.DebugAnnotationOuterClass.DebugAnnotation;
-import perfetto.protos.DebugAnnotationOuterClass.DebugAnnotationName;
-import perfetto.protos.InternedDataOuterClass;
+import org.eclipse.tracecompass.internal.perfetto.protos.TraceOuterClass;
+import org.eclipse.tracecompass.internal.perfetto.protos.TracePacketOuterClass;
+import org.eclipse.tracecompass.internal.perfetto.protos.TrackEventOuterClass;
+import org.eclipse.tracecompass.internal.perfetto.protos.DebugAnnotationOuterClass.DebugAnnotation;
+import org.eclipse.tracecompass.internal.perfetto.protos.DebugAnnotationOuterClass.DebugAnnotationName;
+import org.eclipse.tracecompass.internal.perfetto.protos.InternedDataOuterClass;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.InvalidProtocolBufferException;
 

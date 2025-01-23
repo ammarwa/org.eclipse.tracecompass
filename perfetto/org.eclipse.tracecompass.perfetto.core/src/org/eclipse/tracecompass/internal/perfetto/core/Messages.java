@@ -41,6 +41,11 @@ public class Messages extends NLS {
      * Splitting phase
      */
     public static @Nullable String SortingJob_splitting;
+
+    /**
+     * Invalid Trace File
+     */
+    public static @Nullable String Invalid_trace_file;
     static {
         // initialize resource bundle
         NLS.initializeMessages(BUNDLE_NAME, Messages.class);
