@@ -9,7 +9,7 @@
       </category>
       <type
             category="org.eclipse.linuxtools.perfetto.core.category"
-            event_type="org.eclipse.tracecompass.internal.perfetto.core.event.PerfettoEvent"
+            event_type="org.eclipse.tracecompass.tmf.core.event.TmfEvent"
             id="org.eclipse.linuxtools.perfetto.ui.type.perfetto"
             isDirectory="false"
             name="Perfetto Trace"
