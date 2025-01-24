@@ -30,7 +30,6 @@
     <module>org.eclipse.tracecompass.perfetto</module>
     <module>org.eclipse.tracecompass.perfetto.core</module>
     <module>org.eclipse.tracecompass.perfetto.core.tests</module>
-    <module>org.eclipse.tracecompass.perfetto.core.ui</module>
   </modules>
 
   <dependencies>
