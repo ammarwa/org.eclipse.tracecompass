@@ -17,6 +17,7 @@ Require-Bundle: org.eclipse.tracecompass.common.core,
 Export-Package: org.eclipse.tracecompass.internal.perfetto.core;x-internal:=true,
  org.eclipse.tracecompass.internal.perfetto.core.event,
  org.eclipse.tracecompass.internal.perfetto.protos,
- org.eclipse.tracecompass.internal.provisional.perfetto.core.trace;x-friends:="org.eclipse.tracecompass.perfetto.core.tests"
-Import-Package: com.google.protobuf;version="4.29.3"
-Bundle-Activator: org.eclipse.tracecompass.internal.perfetto.core.Activator
+ org.eclipse.tracecompass.internal.perfetto.core.trace;x-friends:="org.eclipse.tracecompass.perfetto.core.tests"
+Import-Package: com.google.protobuf;version="4.29.3",
+ com.google.common.base,
+ com.google.common.collect

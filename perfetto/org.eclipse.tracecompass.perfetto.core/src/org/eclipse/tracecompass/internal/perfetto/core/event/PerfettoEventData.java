@@ -3,15 +3,9 @@
  */
 package org.eclipse.tracecompass.internal.perfetto.core.event;
 
-import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
 
 import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.tracecompass.tmf.core.event.ITmfEventField;
 import org.eclipse.tracecompass.tmf.core.event.TmfEventField;
 
 /**
@@ -19,6 +13,7 @@ import org.eclipse.tracecompass.tmf.core.event.TmfEventField;
  */
 public class PerfettoEventData extends TmfEventField {
 
+    @SuppressWarnings("null")
     private static PerfettoEventData[] getExtraFields(Hashtable<String, String> extras) {
         PerfettoEventData[] fields = new PerfettoEventData[extras.size()];
         int i = 0;
@@ -34,7 +29,8 @@ public class PerfettoEventData extends TmfEventField {
      * @param value
      * @param fields
      */
-    public PerfettoEventData(String name, String value, Hashtable<String, String> extras) {
+    @SuppressWarnings("javadoc")
+    public PerfettoEventData(@NonNull String name, String value, Hashtable<String, String> extras) {
         super(name, value, getExtraFields(extras));
     }
 
@@ -42,7 +38,7 @@ public class PerfettoEventData extends TmfEventField {
      * @param name
      * @param value
      */
-    public PerfettoEventData(String name, String value) {
+    public PerfettoEventData(@NonNull String name, String value) {
         super(name, value, null);
     }
 

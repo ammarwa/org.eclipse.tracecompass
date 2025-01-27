@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 
-package org.eclipse.tracecompass.internal.provisional.perfetto.core.trace;
+package org.eclipse.tracecompass.internal.perfetto.core.trace;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,10 +18,13 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -47,6 +50,7 @@ import org.eclipse.tracecompass.tmf.core.event.ITmfEvent;
 import org.eclipse.tracecompass.tmf.core.event.ITmfEventField;
 import org.eclipse.tracecompass.tmf.core.exceptions.TmfTraceException;
 import org.eclipse.tracecompass.tmf.core.project.model.ITmfPropertiesProvider;
+import org.eclipse.tracecompass.tmf.core.trace.ITmfTraceWithPreDefinedEvents;
 import org.eclipse.tracecompass.tmf.core.timestamp.TmfTimestamp;
 import org.eclipse.tracecompass.tmf.core.trace.ITmfContext;
 import org.eclipse.tracecompass.tmf.core.trace.ITmfTrace;
@@ -62,6 +66,7 @@ import org.eclipse.tracecompass.tmf.core.trace.indexer.TmfBTreeTraceIndexer;
 import org.eclipse.tracecompass.tmf.core.trace.location.ITmfLocation;
 import org.eclipse.tracecompass.tmf.core.trace.location.TmfLongLocation;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.protobuf.CodedInputStream;
 
 /**
@@ -70,7 +75,7 @@ import com.google.protobuf.CodedInputStream;
  * @author Ammar ELWazir
  */
 @SuppressWarnings("restriction")
-public class Perfetto extends TmfTrace implements ITmfTraceKnownSize {
+public class Perfetto extends TmfTrace implements ITmfTraceKnownSize, ITmfTraceWithPreDefinedEvents {
     // ------------------------------------------------------------------------
     // Attributes
     // ------------------------------------------------------------------------
@@ -82,6 +87,8 @@ public class Perfetto extends TmfTrace implements ITmfTraceKnownSize {
     private boolean flag = true;
     private static String previousName = "N/A";
     private static String previousCat = "N/A";
+
+    private final Map<@NonNull String, @NonNull TmfEventType> fContainedEventTypes = Collections.synchronizedMap(new HashMap<>());
 
     // The trace packet location
     private int fLocation = 0;
@@ -128,17 +135,6 @@ public class Perfetto extends TmfTrace implements ITmfTraceKnownSize {
             throw new TmfTraceException("Protobuf parsing failed: " + e.getMessage(), e);
         }
         super.initTrace(resource, path, type);
-    }
-
-    @Override
-    public int size() {
-        return packets.size();
-    }
-
-    @Override
-    public synchronized TmfContext seekEvent(ITmfLocation location) {
-        fLocation = (location != null) ? (Integer.parseInt(location.getLocationInfo().toString())) : 0;
-        return new TmfContext(new TmfLongLocation(fLocation), fLocation);
     }
 
     @Override
@@ -235,12 +231,12 @@ public class Perfetto extends TmfTrace implements ITmfTraceKnownSize {
           }
         }
         fLocation++;
-        return new TmfEvent(this, fLocation, TmfTimestamp.fromNanos(timestamp), new TmfEventType(cat, null), new PerfettoEventData(namePrefix, name, extras)); // new PerfettoEvent(this, fLocation, name, timestamp, extraNames, extraValues);
+        return new PerfettoEvent(this, fLocation, name, timestamp, new TmfEventType(cat, null), new PerfettoEventData(namePrefix, name, extras));
     }
 
     @Override
     public synchronized void dispose() {
-        // TODO Auto-generated method stub
+        fContainedEventTypes.clear();
         super.dispose();
     }
 
@@ -273,5 +269,38 @@ public class Perfetto extends TmfTrace implements ITmfTraceKnownSize {
     public int progress() {
         // TODO Auto-generated method stub
         return fLocation+1;
+    }
+
+    @Override
+    public int size() {
+        return packets.size();
+    }
+
+    @Override
+    public synchronized TmfContext seekEvent(ITmfLocation location) {
+        fLocation = (int) ((location != null) ? ((TmfLongLocation) location).getLocationInfo() : 0);
+        return new TmfContext(new TmfLongLocation(fLocation), fLocation);
+    }
+
+    /**
+     * Register an event type to this trace.
+     *
+     * Public visibility so that {@link CtfTmfEvent#getType} can call it.
+     *
+     * FIXME This could probably be made cleaner?
+     *
+     * @param eventType
+     *            The event type to register
+     */
+    public void registerEventType(TmfEventType eventType) {
+        fContainedEventTypes.put(eventType.getName(), eventType);
+    }
+
+    /**
+     * Gets the list of declared events
+     */
+    @Override
+    public Set<@NonNull TmfEventType> getContainedEventTypes() {
+        return ImmutableSet.copyOf(fContainedEventTypes.values());
     }
 }

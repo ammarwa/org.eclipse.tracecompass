@@ -9,11 +9,11 @@
       </category>
       <type
             category="org.eclipse.linuxtools.perfetto.core.category"
-            event_type="org.eclipse.tracecompass.tmf.core.event.TmfEvent"
+            event_type="org.eclipse.tracecompass.internal.perfetto.core.event.PerfettoEvent"
             id="org.eclipse.linuxtools.perfetto.ui.type.perfetto"
             isDirectory="false"
             name="Perfetto Trace"
-            trace_type="org.eclipse.tracecompass.internal.provisional.perfetto.core.trace.Perfetto">
+            trace_type="org.eclipse.tracecompass.internal.perfetto.core.trace.Perfetto">
       </type>
    </extension>
 </plugin>
