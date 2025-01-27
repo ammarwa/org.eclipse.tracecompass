@@ -7,6 +7,10 @@ bin/
 target/
 workspace/
 
+# TO BE REMOVED
+*.prefs
+*/*/*/*.prefs
+
 # VS Code
 .devcontainer
 .vscode
